@@ -256,15 +256,8 @@ void DefaultRobotHWSim::readSim(ros::Time time, ros::Duration period)
 #else
     double position = sim_joints_[j]->GetAngle(0).Radian();
 #endif
-    if (joint_types_[j] == urdf::Joint::PRISMATIC)
-    {
-      joint_position_[j] = position;
-    }
-    else
-    {
-      joint_position_[j] += angles::shortest_angular_distance(joint_position_[j],
-                            position);
-    }
+    joint_position_[j] = position;
+
     joint_velocity_[j] = sim_joints_[j]->GetVelocity(0);
     joint_effort_[j] = sim_joints_[j]->GetForce((unsigned int)(0));
   }
